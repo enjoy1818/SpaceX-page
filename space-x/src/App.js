@@ -1,24 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
+import { Button, Layout } from 'antd';
+import Navbar from './components/Navbar'
+import Rockets from './views/Rockets'
+
+const { Header, Content, Footer } = Layout;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout>
+      <Header>
+        <Navbar />
+      </Header>
+      <Content>
+        <Rockets />
+      </Content>
+      <Footer style={{ textAlign: 'center' }}>
+        ©2021 Developed by Pitchayapol, Weerapat, and Possathon
+      </Footer>
+    </Layout>
   );
 }
 
