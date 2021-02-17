@@ -14,7 +14,9 @@ function App() {
       <Content>
         <Rockets />
       </Content>
-      <Footer></Footer>
+      <Footer style={{ textAlign: 'center' }}>
+        ©2021 Developed by Pitchayapol, Weerapat, and Possathon
+      </Footer>
     </Layout>
   );
 }

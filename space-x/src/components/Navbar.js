@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Menu } from 'antd';
 import { RocketOutlined, ToTopOutlined } from '@ant-design/icons';
-import logo from '../SpaceX-logo.png'
 
 function Navbar() {
 
