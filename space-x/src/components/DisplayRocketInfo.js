@@ -1,8 +1,10 @@
+import Button from './button'
+import Image from './Image'
 import React, { useEffect, useState } from 'react';
 
 const axios = require('axios');
 
-function Rockets() {
+function DisplayRocketInfo() {
 
     const [resp, setResp] = useState([]);
 
@@ -20,18 +22,24 @@ function Rockets() {
         }
     }
 
-    function displayData(id, first_flight){
+    function displayData(id, name, imageUrl, first_flight, company, wiki){
       return (
         <div>
+          <Image url={imageUrl} />
           <h3> Rocket ID : {id} </h3>
+          <h4> Rocket Name : {name} </h4>
           <h4> First flight : {first_flight} </h4>
+          <h4> Company : {company} </h4>
+          <Button name="More detail" link={wiki}/>
+          <br />
         </div>
       )
     }
 
     return (
-      resp.map(data => displayData(data.id, data.first_flight))
+      resp.map(data => displayData(data.id, data.rocket_name, data.flickr_images[0], data.first_flight, data.company, data.wikipedia))
     )
+    
 }
 
-export default Rockets;
+export default DisplayRocketInfo;

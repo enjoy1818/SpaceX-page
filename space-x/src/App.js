@@ -1,11 +1,9 @@
-import Button from './components/button'
-import Navbar from './components/Navbar'
+import RocketPage from './Page/RocketPage'
 
 function App() {
   return (
     <div>
-      <Navbar />
-      <Button name="Udomeak"/>
+      <RocketPage />
     </div>
   );
 }
