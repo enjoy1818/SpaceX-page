@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Card, Col, Row } from 'antd';
+import { Card, Col, Row, Statistic } from 'antd';
+import '../rockets.css'
 
 const axios = require('axios');
 
@@ -27,11 +28,30 @@ const Rockets = () => {
 
         rockets.map((rocket) => (
 
-            <Col span={8}>
-                <Card title={rocket.rocket_name} extra={<a href="#">More</a>} style={{ width: 300 }}>
-                    <Meta
+            <Col span={6}>
+                <Card className='Card-Rocket' title={rocket.rocket_name} extra={<a href='#'>More</a>} style={{ width: 300 }}>
+                    {/* <Meta
                         description={rocket.description}
-                    />
+                    /> */}
+                    <Row gutter={16}>
+                        <Col>
+                            <Statistic title="Type" value={rocket.rocket_type} />
+                        </Col>
+                        <Col>
+                            <Statistic title="Engine" value={rocket.engines.type} />
+                        </Col>
+                    </Row>
+                    <Row gutter={16}>
+                        <Col>
+                            <Statistic title='Height' value={`${rocket.height.meters} m`} />
+                        </Col>
+                        <Col>
+                            <Statistic title='Diameter' value={`${rocket.diameter.meters} m`} />
+                        </Col>
+                        <Col>
+                            <Statistic title='Mass' value={`${rocket.mass.kg} kg`} />
+                        </Col>
+                    </Row>
                 </Card>
             </Col>
 
