@@ -1,5 +1,5 @@
 import Button from './button'
-import Image from './Image'
+import {Image, Card} from 'antd';
 import React, { useEffect, useState } from 'react';
 
 const axios = require('axios');
@@ -15,24 +15,22 @@ function DisplayRocketInfo() {
     async function getRocket() {
         try {
             const response = await axios.get('https://api.spacexdata.com/v3/rockets');
-            // console.log(response.data);
             setResp(response.data);
         } catch (error) {
-            // console.error(error);
         }
     }
 
     function displayData(id, name, imageUrl, first_flight, company, wiki){
       return (
-        <div>
-          <Image url={imageUrl} />
-          <h3> Rocket ID : {id} </h3>
-          <h4> Rocket Name : {name} </h4>
-          <h4> First flight : {first_flight} </h4>
-          <h4> Company : {company} </h4>
+        <>
+        <Card title={name} style={{ width: 700 }} hoverable>
+          <Image width={500} src={imageUrl}/>
+          <p> First flight : {first_flight} </p>
+          <p> Company : {company} </p>
           <Button name="More detail" link={wiki}/>
-          <br />
-        </div>
+        </Card>
+        <br />
+        </>
       )
     }
 
