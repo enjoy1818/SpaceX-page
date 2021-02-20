@@ -3,6 +3,12 @@ import logo from './spacex.svg'
 import { Layout, Row } from 'antd';
 import Navbar from './components/Navbar'
 import Rockets from './views/Rockets'
+import HomePage from './views/HomePage'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
 
 const { Header, Content, Footer } = Layout;
 
@@ -10,13 +16,30 @@ function App() {
   return (
     <Layout>
       <Header>
-        <img className='App-logo' src={logo} />
+        <a href="/"><img className='App-logo' src={logo} /></a>
         <Navbar />
       </Header>
       <Content>
+
+      <Router>
+      <Switch>
+
+
+
+      <Route path="/Rocket">
         <Row gutter={16, 16}>
-          <Rockets />
+            <Rockets />
         </Row>
+      </Route>
+
+      <Route path="/">
+          <HomePage />
+      </Route>
+
+      </Switch>
+      </Router>
+
+
       </Content>
       <Footer style={{ textAlign: 'center' }}>
         ©2021 Developed by Pitchayapol, Weerapat, and Possathon

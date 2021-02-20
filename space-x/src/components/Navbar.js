@@ -17,10 +17,10 @@ function Navbar() {
             <Menu className='Navbar' theme='dark' onClick={handleClick} selectedKeys={click} mode="horizontal">
                 <Divider type="vertical" />
                 <Menu.Item key="rockets" icon={<RocketOutlined />}>
-                    Rockets
+                    <a href="/Rocket">Rockets</a>
                     </Menu.Item>
                 <Menu.Item key="launches" icon={<ToTopOutlined />}>
-                    Launches
+                    <a href="/Launch">Launches</a>
                     </Menu.Item>
             </Menu>
         </>
