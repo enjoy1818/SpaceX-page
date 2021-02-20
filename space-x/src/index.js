@@ -2,11 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import RocketLaunch from './views/RocketLaunch'
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
     <App />
+    {/* <RocketLaunch /> */}
   </React.StrictMode>,
   document.getElementById('root')
 );
