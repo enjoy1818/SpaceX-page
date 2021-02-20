@@ -2,6 +2,7 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import RocketPage from './Page/RocketPage'
 import Home from './Page/HomePage'
+import LaunchPage from './Page/LaunchPage'
 import {
   BrowserRouter as Router,
   Switch,
@@ -21,9 +22,9 @@ function App() {
         <RocketPage />
       </Route>
 
-      {/* <Route path="/users">
-        <Users />
-      </Route> */}
+      <Route path="/Launch">
+        <LaunchPage />
+      </Route>
 
     </Switch>
     </Router>

@@ -8,6 +8,7 @@ function RocketPage() {
         <div>
         <Navbar />
         <div style={{display:'flex', justify:'center', alignItems:'center', flexDirection:'column'}}>
+        <br/>
         <DisplayRocketInfo />
         </div>
         </div>

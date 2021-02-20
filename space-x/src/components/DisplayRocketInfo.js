@@ -24,10 +24,12 @@ function DisplayRocketInfo() {
       return (
         <>
         <Card title={name} style={{ width: 700 }} hoverable>
+          <div style={{display:'flex', justify:'center', alignItems:'center', flexDirection:'column'}}>
           <Image width={500} src={imageUrl}/>
           <p> First flight : {first_flight} </p>
           <p> Company : {company} </p>
           <Button name="More detail" link={wiki}/>
+          </div>
         </Card>
         <br />
         </>
