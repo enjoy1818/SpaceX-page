@@ -1,26 +1,29 @@
 import { useState } from 'react';
 import { Divider, Menu } from 'antd';
-import { RocketOutlined, ToTopOutlined } from '@ant-design/icons';
+import { RocketOutlined, ToTopOutlined, HomeOutlined } from '@ant-design/icons';
+
 
 function Navbar() {
 
-    const [click, setIsClick] = useState(['rockets']);
+    const [click, setClick] = useState("home");
 
-    const handleClick = (event) => {
-        console.log(event)
-        setIsClick(event.key);
+    const handleClick = event => {
+        setClick(event.key);
+        console.log(click)
     };
 
     return (
         <>
-            {/* <img className='App-logo' src={logo} /> */}
-            <Menu className='Navbar' theme='dark' onClick={handleClick} selectedKeys={click} mode="horizontal">
+            <Menu className='Navbar' theme='dark' mode="horizontal" selectedKeys={click}>
                 <Divider type="vertical" />
-                <Menu.Item key="rockets" icon={<RocketOutlined />}>
-                    Rockets
+                <Menu.Item key="home" icon={<HomeOutlined />} onClick={handleClick}>
+                    <a href="/" >Home</a>
                     </Menu.Item>
-                <Menu.Item key="launches" icon={<ToTopOutlined />}>
-                    Launches
+                <Menu.Item key="rockets" icon={<RocketOutlined />} onClick={handleClick}>
+                    <a href="/Rocket" >Rockets</a>
+                    </Menu.Item>
+                <Menu.Item key="launches" icon={<ToTopOutlined />} onClick={handleClick}>
+                    <a href="/Launch" >Launches</a>
                     </Menu.Item>
             </Menu>
         </>
