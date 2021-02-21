@@ -4,7 +4,6 @@ import { Layout, Row } from 'antd';
 import Navbar from './components/Navbar'
 import Rockets from './views/Rockets'
 import RocketLaunch from './views/RocketLaunch'
-import Home from './views/Home'
 import ErrorPage from "./views/errorPage"
 import DetailedRocket from "./views/RocketLaunchDetail"
 import HomePage from './views/HomePage'
@@ -26,9 +25,6 @@ function App() {
         <Navbar />
       </Header> <br/>
       <Content>
-        {/* <Row gutter={16, 16}>
-          <Rockets />
-        </Row> */}  
         <Switch>
           <Route exact path="/Launches">
             <RocketLaunch />
@@ -37,16 +33,16 @@ function App() {
             <Rockets />
           </Route>
           <Route exact path="/">
-            <Home />
+            <HomePage />
           </Route>
           <Route path="/Launches/:flightId">
             <DetailedRocket />
           </Route>
-          <Route path="*">
-            <ErrorPage status="404" title="404"/>
-          </Route>
           <Route path="/Detail/:rocket_id">
             <RocketsDetail />
+          </Route>
+          <Route path="*">
+            <ErrorPage status="404" title="404"/>
           </Route>
         </Switch>
       </Content>
