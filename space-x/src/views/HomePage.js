@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Image, Card } from 'antd';
+import { GlobalOutlined, TwitterOutlined } from '@ant-design/icons';
 
 const axios = require('axios');
 
@@ -30,9 +31,9 @@ const HomePage = () => {
             <div style={{display:'flex', justify:'center', alignItems:'center', flexDirection:'column'}}>
                 <Image style={{ width:'50vw', height:'60vh' }} src={"https://cms.qz.com/wp-content/uploads/2018/02/spacex-falcon-heavy-elon-musk-china-europe-esa-nasa-mars-sls-boeing.jpg?quality=75&strip=all&w=1600&h=900&crop=1"}/>
             </div> <br/>
-                <p><a href={spaceX_info.links.website}>SpaceX Website</a></p>
-                <p><a href={spaceX_info.links.twitter}>SpaceX Twitter</a></p>
-                <p><a href={spaceX_info.links.elon_twitter}>Elon Musk's Twitter</a></p>
+                <p><GlobalOutlined /> <a href={spaceX_info.links.website}>SpaceX Website</a></p>
+                <p><TwitterOutlined /> <a href={spaceX_info.links.twitter}>SpaceX Twitter</a></p>
+                <p><TwitterOutlined /> <a href={spaceX_info.links.elon_twitter}>Elon Musk's Twitter</a></p>
             </div>
         </div>
         </Card>

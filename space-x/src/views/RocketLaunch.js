@@ -49,6 +49,7 @@ const RocketLaunch = () => {
                     <input type="text" onChange={handleName} style={inputStyle}/>
                 <label style={labelStyle}>Launch success ?</label>
                     <select onChange={handleSuccess} style={inputStyle}>
+                            <option value="">-</option>
                             <option value="true">Success</option>
                             <option value="false">Failed</option>
                     </select>
