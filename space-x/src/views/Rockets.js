@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Card, Col, Row, Statistic, Button, Image } from 'antd';
+import { FlagOutlined } from '@ant-design/icons';
 import '../rockets.css'
 import ModalPage from './ModalPage'
-import RocketsDetail from './RocketsDetail'
 
 const axios = require('axios');
 
@@ -32,7 +32,7 @@ const Rockets = () => {
                 <Card className='Card-Rocket' title={rocket.rocket_name} style={{ width: 300 }}>
                     <div style={{display:'flex', justify:'center', alignItems:'center', flexDirection:'column'}}>
                     <Image style={{ width:'15vw', height:'25vh' }} src={rocket.flickr_images[0]}/> <br/>
-                    <p> {rocket.country} </p>
+                    <p> <FlagOutlined /> {rocket.country} </p>
                     <br/>
                     <a href={"/detail/"+rocket.rocket_id}><Button type="primary"> More detail </Button></a>
                     {/* <ModalPage data={rocket}/> */}
