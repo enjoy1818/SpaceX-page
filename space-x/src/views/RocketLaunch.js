@@ -1,14 +1,23 @@
-import { Card } from 'antd';
+import { Card, Col, Row} from 'antd';
 import {useEffect, useState} from 'react';
+import { useParams } from 'react-router-dom';
 import "../RocketLaunch.css"
-const RocketLaunch = (props) => {
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
+const RocketLaunch = () => {
     const [launchData, setLaunchData] = useState([]);
+
+    const [rocketCoreData, setCoreData] = useState([]);
     const axios = require('axios');
+    // let { flight_id } = useParams();
     async function getLaunchData (){
         const response = await axios.get("https://api.spacexdata.com/v3/launches")
         try {
             setLaunchData(response.data)
-            
         }catch (error){
             console.error(error);
         }
@@ -16,29 +25,34 @@ const RocketLaunch = (props) => {
     useEffect(()=>{
         getLaunchData()
     }, [])
-    // console.log(launchData[0].mission_name)
+    
     return(
-        // <div>{console.log(launchData)}</div>
-        <div style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
+        <Row style={{alignItems:"center"}}>
             {
-        launchData.map((data) => (
+            launchData.map((data) => (
             <Card key={data.id} title={data.mission_name} style={{width:"50%"}}>
-                <div key={data.launch_year+data.id}>Launch Year : {data.launch_year}</div>
-                <div key={data.rocket.rocket_name+data.id}>Rocket Name : {data.rocket.rocket_name}</div>
-                {/* <RocketDetail rocketData={data.rocket.rocket_name}/> */}
+                <Row style={{alignItems:"center"}}>
+                    <Col span={6}>
+                        <Card>
+                        <div key={data.launch_year+data.id}>Launch Year<h2>{data.launch_year}</h2></div>
+                        <div key={data.rocket.rocket_name+data.id}>Rocket Name<h3>{data.rocket.rocket_name}</h3></div>
+                        </Card>
+                    </Col>
+                    <Col span={8}>
+                        <Card>
+                            {data.rocket.first_stage.cores.map((coreData)=>(
+                            <div key={coreData.id}>Engine Code <h3>{coreData.core_serial}</h3></div>
+                            ))}
+                        </Card>
+                    </Col>
+                    <Col span={6}><Link to={"/Launches/"+data.flight_number}><div>Space Bkicl</div></Link></Col>
+                    {/* <Col span={6}><div>Space Bar</div></Col> */}
+                </Row>       
             </Card>
+
         ))
             }
-            
-        </div>
-    )
-}
-const RocketDetail = (props) => {
-
-    return (
-        <Card title={props}>
-
-        </Card>
+        </Row>
     )
 }
 export default RocketLaunch

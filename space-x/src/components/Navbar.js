@@ -2,6 +2,12 @@ import { useState, useCallback } from 'react';
 import { Divider, Menu } from 'antd';
 import { RocketOutlined, ToTopOutlined } from '@ant-design/icons';
 import logo from "../spacex.svg"
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
 
 function Navbar() {
 
@@ -16,10 +22,10 @@ function Navbar() {
             <Menu className='Navbar' theme='dark' onClick={handleClick} selectedKeys={click} mode="horizontal">
                 <Divider type="vertical" />
                 <Menu.Item key="rockets" icon={<RocketOutlined />}>
-                    <a href="/Rockets">Rockets</a>
+                    <Link to="/Rockets">Rockets</Link>
                     </Menu.Item>
                 <Menu.Item key="launches" icon={<ToTopOutlined />}>
-                    <a href="/Launches">Launches</a>
+                    <Link to="/Launches">Launches</Link>
                     </Menu.Item>
             </Menu>
         </>

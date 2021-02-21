@@ -6,6 +6,7 @@ import Rockets from './views/Rockets'
 import RocketLaunch from './views/RocketLaunch'
 import Home from './views/Home'
 import ErrorPage from "./views/errorPage"
+import DetailedRocket from "./views/RocketLaunchDetail"
 import {
   BrowserRouter as Router,
   Switch,
@@ -19,7 +20,7 @@ function App() {
   <Router>
     <Layout>
       <Header>
-        <a href="/"><img className='App-logo' src={logo} /></a>
+        <Link to="/"><img className='App-logo' src={logo} /></Link>
         <Navbar />
       </Header>
       <Content>
@@ -35,6 +36,9 @@ function App() {
         </Route>
         <Route exact path="/">
           <Home />
+        </Route>
+        <Route path="/Launches/:flightId">
+          <DetailedRocket />
         </Route>
         <Route path="*">
           <ErrorPage status="404" title="404"/>
