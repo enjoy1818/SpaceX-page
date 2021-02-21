@@ -1,5 +1,5 @@
 import "../RocketLaunch.css"
-import { useParams } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 import { useState, useEffect } from 'react'
 import { Divider, Card , Space, Typography, Row, Col, Timeline} from 'antd'
 const DetailedRocket = (props) => {
@@ -34,7 +34,7 @@ const DetailedRocket = (props) => {
                 </Col>
                 <Col span={8} >
                     <Title level={5}>Rocket Used</Title> 
-                    <Title level={3}>{detailedRocket.rocket.rocket_name}</Title>
+                    <Title level={3}><Link to={"/Detail/"+detailedRocket.rocket.rocket_id}>{detailedRocket.rocket.rocket_name}</Link></Title>
                 </Col>
                 <Col span={8}>
                     <Title level={5}>Launch Site</Title>
