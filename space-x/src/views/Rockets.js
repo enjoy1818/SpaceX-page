@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
-import { Card, Col, Row, Statistic } from 'antd';
+import { Card, Col, Row, Statistic, Button, Image } from 'antd';
 import '../rockets.css'
+import ModalPage from './ModalPage'
+import RocketsDetail from './RocketsDetail'
 
 const axios = require('axios');
 
 const Rockets = () => {
 
     const [rockets, setRockets] = useState([]);
-
-    const { Meta } = Card;
 
     useEffect(() => {
         getRocket();
@@ -17,7 +17,7 @@ const Rockets = () => {
     async function getRocket() {
         try {
             const response = await axios.get('https://api.spacexdata.com/v3/rockets');
-            console.log(response.data);
+            // console.log(response.data);
             setRockets(response.data);
         } catch (error) {
             console.error(error);
@@ -29,29 +29,14 @@ const Rockets = () => {
         rockets.map((rocket) => (
 
             <Col span={6}>
-                <Card className='Card-Rocket' title={rocket.rocket_name} extra={<a href='#'>More</a>} style={{ width: 300 }}>
-                    {/* <Meta
-                        description={rocket.description}
-                    /> */}
-                    <Row gutter={16}>
-                        <Col>
-                            <Statistic title="Type" value={rocket.rocket_type} />
-                        </Col>
-                        <Col>
-                            <Statistic title="Engine" value={rocket.engines.type} />
-                        </Col>
-                    </Row>
-                    <Row gutter={16}>
-                        <Col>
-                            <Statistic title='Height' value={`${rocket.height.meters} m`} />
-                        </Col>
-                        <Col>
-                            <Statistic title='Diameter' value={`${rocket.diameter.meters} m`} />
-                        </Col>
-                        <Col>
-                            <Statistic title='Mass' value={`${rocket.mass.kg} kg`} />
-                        </Col>
-                    </Row>
+                <Card className='Card-Rocket' title={rocket.rocket_name} style={{ width: 300 }}>
+                    <div style={{display:'flex', justify:'center', alignItems:'center', flexDirection:'column'}}>
+                    <Image style={{ width:'15vw', height:'25vh' }} src={rocket.flickr_images[0]}/> <br/>
+                    <p> {rocket.country} </p>
+                    <br/>
+                    <a href={"/detail/"+rocket.rocket_id}><Button type="primary"> More detail </Button></a>
+                    {/* <ModalPage data={rocket}/> */}
+                    </div>
                 </Card>
             </Col>
         

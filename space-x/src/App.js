@@ -7,6 +7,8 @@ import RocketLaunch from './views/RocketLaunch'
 import Home from './views/Home'
 import ErrorPage from "./views/errorPage"
 import DetailedRocket from "./views/RocketLaunchDetail"
+import HomePage from './views/HomePage'
+import RocketsDetail from './views/RocketsDetail'
 import {
   BrowserRouter as Router,
   Switch,
@@ -22,28 +24,31 @@ function App() {
       <Header>
         <Link to="/"><img className='App-logo' src={logo} /></Link>
         <Navbar />
-      </Header>
+      </Header> <br/>
       <Content>
         {/* <Row gutter={16, 16}>
           <Rockets />
         </Row> */}  
-      <Switch>
-        <Route exact path="/Launches">
-          <RocketLaunch />
-        </Route>
-        <Route exact path="/Rockets">
-          <Rockets />
-        </Route>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/Launches/:flightId">
-          <DetailedRocket />
-        </Route>
-        <Route path="*">
-          <ErrorPage status="404" title="404"/>
-        </Route>
-      </Switch>
+        <Switch>
+          <Route exact path="/Launches">
+            <RocketLaunch />
+          </Route>
+          <Route exact path="/Rockets">
+            <Rockets />
+          </Route>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/Launches/:flightId">
+            <DetailedRocket />
+          </Route>
+          <Route path="*">
+            <ErrorPage status="404" title="404"/>
+          </Route>
+          <Route path="/Detail/:rocket_id">
+            <RocketsDetail />
+          </Route>
+        </Switch>
       </Content>
       <Footer style={{ textAlign: 'center' }}>
         ©2021 Developed by Pitchayapol, Weerapat, and Possathon
