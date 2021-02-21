@@ -1,26 +1,31 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { Divider, Menu } from 'antd';
 import { RocketOutlined, ToTopOutlined } from '@ant-design/icons';
+import logo from "../spacex.svg"
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
 
 function Navbar() {
 
-    const [click, setIsClick] = useState(['rockets']);
-
+    const [click, setIsClick] = useState(['launches']);
     const handleClick = (event) => {
-        console.log(event)
-        setIsClick(event.key);
+        setIsClick(event.key)
     };
 
     return (
         <>
-            {/* <img className='App-logo' src={logo} /> */}
+            {/* <a href="/"><img className='App-logo' src={logo}/></a> */}
             <Menu className='Navbar' theme='dark' onClick={handleClick} selectedKeys={click} mode="horizontal">
                 <Divider type="vertical" />
                 <Menu.Item key="rockets" icon={<RocketOutlined />}>
-                    Rockets
+                    <Link to="/Rockets">Rockets</Link>
                     </Menu.Item>
                 <Menu.Item key="launches" icon={<ToTopOutlined />}>
-                    Launches
+                    <Link to="/Launches">Launches</Link>
                     </Menu.Item>
             </Menu>
         </>

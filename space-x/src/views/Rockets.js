@@ -25,7 +25,7 @@ const Rockets = () => {
     }
 
     return (
-
+        <Row>{
         rockets.map((rocket) => (
 
             <Col span={6}>
@@ -54,9 +54,10 @@ const Rockets = () => {
                     </Row>
                 </Card>
             </Col>
-
+        
         ))
-
+        }
+        </Row>
     )
 }
 
