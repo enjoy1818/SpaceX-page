@@ -6,7 +6,7 @@ const axios = require('axios');
 
 function RocketsDetail(){
     const {rocket_id} = useParams();
-    const [detail, setDetail] = useState({flickr_images: 'default', engines : 'default', height : 'default', diameter : 'default', mass : 'default'});
+    const [detail, setDetail] = useState({flickr_images: 'default', engines : 'default', height : 'default', diameter : 'default', mass : 'default', second_stage : {thrust : {kN : 'default'}}});
 
     useEffect(() => {
         getDetail();
@@ -59,6 +59,9 @@ function RocketsDetail(){
             </Col>
             <Col>
                 <Statistic title='Mass' value={`${detail.mass.kg} kg`} />
+            </Col>
+            <Col>
+                <Statistic title='Thrust' value={`${detail.second_stage.thrust.kN ?? 'default'} kN`} />
             </Col>
         </Row>
 
