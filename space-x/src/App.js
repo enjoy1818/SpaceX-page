@@ -37,16 +37,16 @@ function App() {
             <Rockets />
           </Route>
           <Route exact path="/">
-            <Home />
+            <HomePage />
           </Route>
           <Route path="/Launches/:flightId">
             <DetailedRocket />
           </Route>
-          <Route path="*">
-            <ErrorPage status="404" title="404"/>
-          </Route>
           <Route path="/Detail/:rocket_id">
             <RocketsDetail />
+          </Route>
+          <Route path="*">
+            <ErrorPage status="404" title="404"/>
           </Route>
         </Switch>
       </Content>
