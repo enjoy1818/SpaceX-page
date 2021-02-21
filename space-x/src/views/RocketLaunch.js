@@ -1,12 +1,16 @@
-import { Card, Col, Row} from 'antd';
+import { Card, Col, Row } from 'antd';
+import { FilterOutlined } from '@ant-design/icons';
 import {useEffect, useState} from 'react';
 import "../RocketLaunch.css"
 import {Link} from "react-router-dom";
-import Title from 'antd/lib/skeleton/Title';
-const RocketLaunch = () => {
-    const [launchData, setLaunchData] = useState([]);
 
-    const [rocketCoreData, setCoreData] = useState([]);
+const RocketLaunch = () => {
+
+    const [launchData, setLaunchData] = useState([]);
+    const [filterYear, setFilterYear] = useState("");
+    const [filterRocketName, setFilterRocketName] = useState("");
+    const [filterSuccess, setFilterSuccess] = useState("");
+
     const axios = require('axios');
     async function getLaunchData (){
         const response = await axios.get("https://api.spacexdata.com/v3/launches")
@@ -19,11 +23,40 @@ const RocketLaunch = () => {
     useEffect(()=>{
         getLaunchData()
     }, [])
+
+    function handleYear(event){
+        setFilterYear(event.target.value);
+    }
+
+    function handleName(event){
+        setFilterRocketName(event.target.value);
+    }
+
+    function handleSuccess(event){
+        setFilterSuccess(event.target.value);
+    }
+
+    const labelStyle = {marginRight: '10px'};
+    const inputStyle = {marginRight: '20px', width: '150px', height: '25px', border: '1px solid'};
     
     return(
+        <>
+            <div align="right" style={{marginRight: '20px', marginBottom: '20px'}}>
+                <label style={labelStyle}> <FilterOutlined/> Filtering By |</label>
+                <label style={labelStyle}>Year:</label>
+                    <input type="text" onChange={handleYear} style={inputStyle}/>
+                <label style={labelStyle}>Rocket's Name:</label>
+                    <input type="text" onChange={handleName} style={inputStyle}/>
+                <label style={labelStyle}>Launch success ?</label>
+                    <select onChange={handleSuccess} style={inputStyle}>
+                            <option value="true">Success</option>
+                            <option value="false">Failed</option>
+                    </select>
+            </div>
+
         <Row style={{alignItems:"center"}}>
             {
-            launchData.map((data) => (
+            launchData.filter(launchData => launchData.launch_year.includes(filterYear)).filter(launchData => launchData.rocket.rocket_name.includes(filterRocketName)).filter(launchData => String(launchData.launch_success).includes(filterSuccess)).map((data) => (
             <Card key={data.id} title={data.mission_name} style={{width:"50%"}}>
                 <Row style={{textAlign:"center"}}>
                     <Col span={6}>
@@ -47,13 +80,16 @@ const RocketLaunch = () => {
                         
                     </Col>
                     <Col span={6}>
+                        <Card>
                         <Link to={"/Launches/"+data.flight_number}><div>Details</div></Link>
+                        </Card>
                     </Col>
                 </Row>       
             </Card>
         ))
             }
         </Row>
+        </>
     )
 }
 export default RocketLaunch
