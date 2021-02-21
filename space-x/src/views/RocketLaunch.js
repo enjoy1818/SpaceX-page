@@ -45,7 +45,7 @@ const RocketLaunch = () => {
                             ))}
                         </Card>
                     </Col>
-                    <Col span={6}><Link to={"/Launches/"+data.flight_number}><div>More detail</div></Link></Col>
+                    <Col span={6}><Link to={"/Launches/"+data.flight_number}><div style={{display:'flex', justify:'center', alignItems:'center', flexDirection:'column'}}>More detail</div></Link></Col>
                     {/* <Col span={6}><div>Space Bar</div></Col> */}
                 </Row>       
             </Card>
