@@ -2,6 +2,8 @@ import "../RocketLaunch.css"
 import { useParams, Link } from "react-router-dom"
 import { useState, useEffect } from 'react'
 import { Divider, Card , Space, Typography, Row, Col, Timeline} from 'antd'
+import { LinkOutlined } from '@ant-design/icons';
+
 const DetailedRocket = (props) => {
     const [detailedRocket, setDetail] = useState({rocket:{rocket_name:"Default",
     first_stage:{cores:["Default"]}},
@@ -34,7 +36,7 @@ const DetailedRocket = (props) => {
                 </Col>
                 <Col span={8} >
                     <Title level={5}>Rocket Used</Title> 
-                    <Title level={3}><Link to={"/Detail/"+detailedRocket.rocket.rocket_id}>{detailedRocket.rocket.rocket_name}</Link></Title>
+                    <Title level={3}><Link to={"/Detail/"+detailedRocket.rocket.rocket_id}>{detailedRocket.rocket.rocket_name}</Link> <LinkOutlined /></Title>
                 </Col>
                 <Col span={8}>
                     <Title level={5}>Launch Site</Title>
