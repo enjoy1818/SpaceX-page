@@ -10,14 +10,13 @@ import {
 
 function Navbar() {
 
-    const [click, setIsClick] = useState(['launches']);
+    const [click, setIsClick] = useState(['home']);
     const handleClick = (event) => {
         setIsClick(event.key)
     };
 
     return (
         <>
-            {/* <a href="/"><img className='App-logo' src={logo}/></a> */}
             <Menu className='Navbar' theme='dark' onClick={handleClick} selectedKeys={click} mode="horizontal">
                 <Divider type="vertical" />
                 <Menu.Item key="home" icon={<HomeOutlined />}>

@@ -1,4 +1,4 @@
-import { Card, Col, Row } from 'antd';
+import { Card, Col, Row, Select, Input } from 'antd';
 import { FilterOutlined } from '@ant-design/icons';
 import {useEffect, useState} from 'react';
 import "../RocketLaunch.css"
@@ -10,6 +10,7 @@ const RocketLaunch = () => {
     const [filterYear, setFilterYear] = useState("");
     const [filterRocketName, setFilterRocketName] = useState("");
     const [filterSuccess, setFilterSuccess] = useState("");
+    const { Option } = Select;
 
     const axios = require('axios');
     async function getLaunchData (){
@@ -25,34 +26,41 @@ const RocketLaunch = () => {
     }, [])
 
     function handleYear(event){
+        console.log(event)
         setFilterYear(event.target.value);
     }
 
     function handleName(event){
-        setFilterRocketName(event.target.value);
+        setFilterRocketName(event.value);
     }
 
     function handleSuccess(event){
-        setFilterSuccess(event.target.value);
+        setFilterSuccess(event.value);
     }
 
     const labelStyle = {marginRight: '10px'};
-    const inputStyle = {marginRight: '20px', width: '150px', height: '25px', border: '1px solid'};
+    const inputStyle = {marginRight: '20px', width: 120, height: '32px'};
     
     return(
         <>
             <div align="right" style={{marginRight: '20px', marginBottom: '20px'}}>
                 <label style={labelStyle}> <FilterOutlined/> Filtering By |</label>
-                <label style={labelStyle}>Year:</label>
-                    <input type="text" onChange={handleYear} style={inputStyle}/>
+                <label style={labelStyle}>Launch year:</label>
+                    <Input type="text" onChange={handleYear} style={inputStyle}/>
                 <label style={labelStyle}>Rocket's Name:</label>
-                    <input type="text" onChange={handleName} style={inputStyle}/>
+                    <Select labelInValue style={inputStyle} onChange={handleName} labelInValue>
+                            <Option value="">-</Option>
+                            <Option value="Falcon 1">Falcon 1</Option>
+                            <Option value="Falcon 9">Falcon 9</Option>
+                            <Option value="Falcon Heavy">Falcon Heavy</Option>
+                            <Option value="Starship">Starship</Option>
+                    </Select>
                 <label style={labelStyle}>Launch success ?</label>
-                    <select onChange={handleSuccess} style={inputStyle}>
-                            <option value="">-</option>
-                            <option value="true">Success</option>
-                            <option value="false">Failed</option>
-                    </select>
+                    <Select onChange={handleSuccess} style={inputStyle} labelInValue>
+                            <Option value="">-</Option>
+                            <Option value="true">Success</Option>
+                            <Option value="false">Failed</Option>
+                    </Select>
             </div>
 
         <Row style={{alignItems:"center"}}>

@@ -21,7 +21,7 @@ function App() {
   <Router>
     <Layout>
       <Header>
-        <Link to="/"><img className='App-logo' src={logo} /></Link>
+        <img className='App-logo' src={logo} />
         <Navbar />
       </Header> <br/>
       <Content>
