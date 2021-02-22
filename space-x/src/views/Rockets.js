@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Card, Col, Row, Statistic, Button, Image } from 'antd';
 import { FlagOutlined } from '@ant-design/icons';
+import { Link } from "react-router-dom";
 import '../rockets.css'
-import ModalPage from './ModalPage'
 
 const axios = require('axios');
 
@@ -26,21 +26,21 @@ const Rockets = () => {
 
     return (
         <Row>{
-        rockets.map((rocket) => (
+            rockets.map((rocket) => (
 
-            <Col span={6}>
-                <Card className='Card-Rocket' title={rocket.rocket_name} style={{ width: 300 }}>
-                    <div style={{display:'flex', justify:'center', alignItems:'center', flexDirection:'column'}}>
-                    <Image style={{ width:'15vw', height:'25vh' }} src={rocket.flickr_images[0]}/> <br/>
-                    <p> <FlagOutlined /> {rocket.country} </p>
-                    <br/>
-                    <a href={"/detail/"+rocket.rocket_id}><Button type="primary"> More detail </Button></a>
-                    {/* <ModalPage data={rocket}/> */}
-                    </div>
-                </Card>
-            </Col>
-        
-        ))
+                <Col span={6}>
+                    <Card className='Card-Rocket' title={rocket.rocket_name} style={{ width: 300 }}>
+                        <div style={{ display: 'flex', justify: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                            <Image style={{ width: '15vw', height: '25vh' }} src={rocket.flickr_images[0]} /> <br />
+                            <p> <FlagOutlined /> {rocket.country} </p>
+                            <br />
+                            <Link to={"/detail/" + rocket.rocket_id}><Button type="primary"> More detail </Button></Link>
+                            {/* <ModalPage data={rocket}/> */}
+                        </div>
+                    </Card>
+                </Col>
+
+            ))
         }
         </Row>
     )
