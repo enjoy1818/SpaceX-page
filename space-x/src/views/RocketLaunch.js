@@ -1,37 +1,77 @@
 import { Card, Col, Row, Select, Input } from 'antd';
 import { FilterOutlined } from '@ant-design/icons';
-import {useEffect, useState} from 'react';
+import { Fragment, useEffect, useState, useMemo, useRef, useCallback } from 'react';
 import "../RocketLaunch.css"
 import {Link} from "react-router-dom";
+import queryString from 'query-string'
+import InfiniteScroll from 'react-infinite-scroll-component'
+
+const initialState = {
+    pagination: {
+      perPage: 10,
+      current: 1,
+      hasMore: true,
+    },
+  }
 
 const RocketLaunch = () => {
+    const { Option } = Select;
 
-    const [launchData, setLaunchData] = useState([]);
     const [filterYear, setFilterYear] = useState("");
     const [filterRocketName, setFilterRocketName] = useState("");
     const [filterSuccess, setFilterSuccess] = useState("");
-    const [isLoading, setLoading] = useState(false);
-    const { Option } = Select;
+    const [pagination, setPagination] = useState(initialState.pagination)
+    const [launchData, setLaunchData] = useState([]);
+    const controllerRef = useRef()
+    
+    const handlePageChange = useCallback(
+        () => {
+          setPagination((prev) => ({ ...prev, current: prev.current + 1 }))
+        },
+        [],
+    )
 
-    const axios = require('axios');
-    async function getLaunchData (){
-        const response = await axios.get("https://api.spacexdata.com/v3/launches")
-        try {
-            // window.alert(response.data.length)
-            // console.log(response)
-            setLaunchData(response.data)
-        }catch (error){
-            console.error(error);
-        }finally{
+    const filterParams = useMemo(
+        () => queryString.stringify({
+          id: true,
+          limit: pagination.perPage,
+          offset: (pagination.current - 1) * pagination.perPage,
+        }, { skipEmptyString: true }),
+        [pagination],
+      )
 
-        }
-    }
-    useEffect(()=>{
-        getLaunchData()
-    }, [])
+    useEffect(
+        () => {
+          const fetchLaunches = async () => {
+            if (controllerRef.current) {
+              controllerRef.current.abort()
+            }
+            const controller = new AbortController()
+            controllerRef.current = controller
+            try {
+              const response = await fetch(`https://api.spacexdata.com/v3/launches?${filterParams}`, {
+                signal: controllerRef.current?.signal,
+              })
+              if (response.status !== 200) {
+                console.error(new Error(`API Error: status code ${response.status}`))
+              } else {
+                const json = await response.json()
+                setLaunchData((prev) => ([...prev, ...json]))
+                if (json.length < pagination.perPage) {
+                  setPagination((prev) => ({ ...prev, hasMore: false }))
+                }
+              }
+              controllerRef.current = null
+            } catch (err) {
+              console.error(err)
+            }
+          }
+          fetchLaunches()
+        },
+        [filterParams, pagination.perPage],
+      )
 
     function handleYear(event){
-        console.log(event)
         setFilterYear(event.target.value);
     }
 
@@ -48,7 +88,9 @@ const RocketLaunch = () => {
     
     return(
         <>
-            <div align="right" style={{marginRight: '20px', marginBottom: '20px'}}>
+
+
+        <div align="right" style={{marginRight: '20px', marginBottom: '20px'}}>
                 <label style={labelStyle}> <FilterOutlined/> Filtering By |</label>
                 <label style={labelStyle}>Launch year:</label>
                     <Input type="text" onChange={handleYear} style={inputStyle}/>
@@ -62,13 +104,23 @@ const RocketLaunch = () => {
                     </Select>
                 <label style={labelStyle}>Launch success ?</label>
                     <Select onChange={handleSuccess} style={inputStyle} labelInValue>
-                            <Option value="">-</Option>
+                            <Option value="all">-</Option>
                             <Option value="true">Success</Option>
                             <Option value="false">Failed</Option>
                     </Select>
-            </div>
+        </div>
+        <div id="scrollableDiv" style={{ height: 'calc(100vh - 200px)', overflowX: 'hidden', overflowY: 'auto' }}>
 
-        <Row style={{alignItems:"center"}}>
+            <InfiniteScroll
+                dataLength={launchData.length}
+                next={handlePageChange}
+                hasMore={pagination.hasMore}
+                loader={<p style={{marginTop: '20px', display:'flex', justify:'center', alignItems:'center', flexDirection:'column'}}> Loading... </p>}
+                scrollableTarget="scrollableDiv"
+                style={{ overflow: 'hidden' }}
+            >
+
+            <Row style={{alignItems:"center"}}>
             {
             launchData.filter(launchData => launchData.launch_year.includes(filterYear)).filter(launchData => launchData.rocket.rocket_name.includes(filterRocketName)).filter(launchData => String(launchData.launch_success).includes(filterSuccess)).map((data) => (
             <Card key={data.id} title={data.mission_name} style={{width:"50%"}}>
@@ -103,6 +155,10 @@ const RocketLaunch = () => {
         ))
             }
         </Row>
+
+            </InfiniteScroll>
+        </div>
+
         </>
     )
 }
