@@ -1,6 +1,6 @@
 import { Card, Col, Row, Select, Input } from 'antd';
 import { FilterOutlined } from '@ant-design/icons';
-import { Fragment, useEffect, useState, useMemo, useRef, useCallback } from 'react';
+import { useEffect, useState, useMemo, useRef, useCallback } from 'react';
 import "../RocketLaunch.css"
 import {Link} from "react-router-dom";
 import queryString from 'query-string'
@@ -104,7 +104,7 @@ const RocketLaunch = () => {
                     </Select>
                 <label style={labelStyle}>Launch success ?</label>
                     <Select onChange={handleSuccess} style={inputStyle} labelInValue>
-                            <Option value="all">-</Option>
+                            <Option value="">-</Option>
                             <Option value="true">Success</Option>
                             <Option value="false">Failed</Option>
                     </Select>
