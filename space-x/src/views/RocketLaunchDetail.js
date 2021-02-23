@@ -1,14 +1,14 @@
 import "../RocketLaunch.css"
 import { useParams, Link } from "react-router-dom"
 import { useState, useEffect } from 'react'
-import { Divider, Card , Space, Typography, Row, Col, Timeline} from 'antd'
+import { Divider, Card , Space, Typography, Row, Col, Timeline, Image} from 'antd'
 import { LinkOutlined } from '@ant-design/icons';
 
 const DetailedRocket = (props) => {
     const [detailedRocket, setDetail] = useState({rocket:{rocket_name:"Default",
     first_stage:{cores:["Default"]}},
     launch_site:{site_name:"Default"},details:"Default",
-    })
+    links:{mission_patch:"Default"}})
     const [timeline, setTimeline] = useState({})
     const axios = require('axios');
     const { Title, Paragraph, Text } = Typography
@@ -16,9 +16,9 @@ const DetailedRocket = (props) => {
     async function getDetailedLaunch(){
         const response = await axios.get("https://api.spacexdata.com/v3/launches/"+flightId)
         try {
-            console.log(response.data)
+            // console.log(response.data)
             setDetail(response.data)
-            setTimeline(response.date.timeline)
+            // setTimeline(response.date.timeline)
         }catch(error){
             console.log(error)
         }
@@ -27,7 +27,11 @@ const DetailedRocket = (props) => {
     getDetailedLaunch()
     }, [])
     return(
-        <Card key="DetailedLaunchCard" Style={{alignItems:"center", minHeight:"100%"}}>
+        <Card key="DetailedLaunchCard" Style={{textAlign:"center", minHeight:"100%", justifyContent:"center"}}>
+            <Divider><Title level={2}>Mission Patch</Title></Divider>
+            <div style={{width:"12.5%", display:"block", marginLeft:"auto", marginRight:"auto"}}>
+                <Image src={detailedRocket.links.mission_patch} />
+            </div>
             <Divider><Title level={2}>Mission Detail</Title></Divider>
             <Row  style={{textAlign:"center"}}> 
                 <Col span={8}>

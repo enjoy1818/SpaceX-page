@@ -10,15 +10,20 @@ const RocketLaunch = () => {
     const [filterYear, setFilterYear] = useState("");
     const [filterRocketName, setFilterRocketName] = useState("");
     const [filterSuccess, setFilterSuccess] = useState("");
+    const [isLoading, setLoading] = useState(false);
     const { Option } = Select;
 
     const axios = require('axios');
     async function getLaunchData (){
         const response = await axios.get("https://api.spacexdata.com/v3/launches")
         try {
+            // window.alert(response.data.length)
+            // console.log(response)
             setLaunchData(response.data)
         }catch (error){
             console.error(error);
+        }finally{
+
         }
     }
     useEffect(()=>{
