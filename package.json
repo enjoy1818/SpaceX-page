@@ -1,1 +1,5 @@
-{}
+{
+  "dependencies": {
+    "react-infinite-scroll-component": "^6.0.0"
+  }
+}
